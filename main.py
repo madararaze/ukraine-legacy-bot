@@ -59,24 +59,24 @@ async def hint_handler(callback: CallbackQuery):
 
 @dp.callback_query(F.data.startswith("close_"))
 async def close_handler(callback: CallbackQuery):
-    user_id = int(callback.data.split("_")[1])
     try:
+        user_id = int(callback.data.split("_")[1])
         await bot.send_message(user_id, f"✅ **Ваше звернення було закрите.**\nДякуємо за гру на {PROJECT_NAME}!")
         await callback.message.edit_text(callback.message.text + "\n\n🛑 **СТАТУС: ТИКЕТ ЗАКРИТО**")
         await callback.answer("Закрито!")
-    except:
-        await callback.answer("Помилка при закритті")
+    except Exception as e:
+        await callback.answer(f"Помилка: {e}")
 
-# --- ГОЛОВНИЙ ОБРОБНИК (ULTRA LOGIC) ---
+# --- ГОЛОВНИЙ ОБРОБНИК ---
 
 @dp.message()
 async def global_handler(message: types.Message):
     # ПЕРЕВІРКА: ЧИ ПИШЕ АДМІН (ВІДПОВІДЬ ГРАВЦЕВІ)
     if message.from_user.id in ADMIN_IDS:
         if message.reply_to_message:
+            # Беремо текст з повідомлення, на яке відповідаємо
             content = message.reply_to_message.text or message.reply_to_message.caption or ""
-            # Пошук ID за допомогою регулярного виразу
-            found_id = re.search(r"ID: (\d+)", content)
+            found_id = re.search(r"ID:\s*(\d+)", content)
             
             if found_id:
                 user_id = int(found_id.group(1))
@@ -90,7 +90,7 @@ async def global_handler(message: types.Message):
                 except Exception as e:
                     await message.reply(f"❌ Помилка надсилання: {e}")
             else:
-                await message.reply("❌ **Помилка:** Я не знайшов ID гравця. Відповідайте (Reply) саме на повідомлення бота з даними тикета.")
+                await message.reply("❌ **ID не знайдено.** Натисніть 'Reply' саме на повідомлення з даними тикета.")
         return
 
     # ПЕРЕВІРКА: ЧИ ПИШЕ ГРАВЕЦЬ (СТВОРЕННЯ ТИКЕТА)
@@ -119,6 +119,4 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
-
     asyncio.run(main())
-
