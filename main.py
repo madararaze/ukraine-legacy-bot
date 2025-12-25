@@ -6,7 +6,7 @@ from aiogram.filters import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 # --- НАЛАШТУВАННЯ ---
-API_TOKEN = '7306969241:AAEwJXOsKikKMN7MA2LNRFv57ADmM_lKf0U'
+API_TOKEN = '8584377554:AAF6eRRF4t4daiCAPanx1IwJAlT_59fbkIQ'
 ADMIN_IDS = [6867625126, 5506402566] 
 PROJECT_NAME = "Ukraine Legacy"
 WEBSITE_URL = "https://ukrainelegacy.netlify.app/"
@@ -121,3 +121,4 @@ async def main():
 if __name__ == "__main__":
 
     asyncio.run(main())
+
