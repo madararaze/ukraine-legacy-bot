@@ -6,7 +6,7 @@ from aiogram.filters import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 # --- НАЛАШТУВАННЯ ---
-API_TOKEN = '7306969241:AAGgZyJErnFt6TJ5GFECJxpiMC93gLt8lGs'
+API_TOKEN = '7306969241:AAEwJXOsKikKMN7MA2LNRFv57ADmM_lKf0U'
 ADMIN_IDS = [6867625126, 5506402566] 
 PROJECT_NAME = "Ukraine Legacy"
 WEBSITE_URL = "https://ukrainelegacy.netlify.app/"
@@ -119,4 +119,5 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+
     asyncio.run(main())
